@@ -103,9 +103,6 @@
                         </li>
                     @else
                         @if(Auth::user()->role === 'admin')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin Panel</a>
-                            </li>
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>

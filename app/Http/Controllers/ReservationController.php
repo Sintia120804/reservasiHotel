@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $reservations = SintiaReservation::where('user_id', Auth::id())
@@ -115,5 +110,20 @@ class ReservationController extends Controller
             ->groupBy('room_type_id');
 
         return response()->json($availableRooms);
+    }
+
+    public function print($id)
+    {
+        $reservation = SintiaReservation::where('user_id', Auth::id())
+            ->with(['user', 'room.roomType'])
+            ->findOrFail($id);
+        
+        // Hanya bisa cetak reservasi yang sudah dikonfirmasi
+        if ($reservation->status !== 'confirmed') {
+            return redirect()->route('reservations.show', $id)
+                ->with('error', 'Hanya reservasi yang sudah dikonfirmasi yang dapat dicetak.');
+        }
+        
+        return view('reservations.print', compact('reservation'));
     }
 }

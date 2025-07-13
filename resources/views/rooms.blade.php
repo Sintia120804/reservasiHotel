@@ -28,9 +28,13 @@
                     <div class="card border-0 shadow-sm card-hover h-100">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <div class="bg-primary bg-gradient d-flex align-items-center justify-content-center" style="height: 100%; min-height: 200px;">
-                                    <i class="fas fa-bed fa-4x text-white"></i>
-                                </div>
+                                @if($roomType->image)
+                                    <img src="{{ asset('storage/' . $roomType->image) }}" alt="{{ $roomType->name }}" class="img-fluid rounded-start w-100 h-100 object-fit-cover" style="min-height:200px;max-height:220px;">
+                                @else
+                                    <div class="bg-primary bg-gradient d-flex align-items-center justify-content-center" style="height: 100%; min-height: 200px;">
+                                        <i class="fas fa-bed fa-4x text-white"></i>
+                                    </div>
+                                @endif
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body p-4">
